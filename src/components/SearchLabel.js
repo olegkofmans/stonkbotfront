@@ -3,21 +3,24 @@ import React, { useState } from "react";
 const SearchLabel = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [error, setError] = useState(null);
-  const [allRulesPassed, setAllRulesPassed] = useState(false);
-  const [stockName, setStockName] = useState(""); // New state variable to store the valid stock name
-
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState("");
   const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 
   const handleInputChange = (event) => {
     setSearchQuery(event.target.value);
-    setAllRulesPassed(false);
+    setError(null); // Clear any previous errors when user starts typing
   };
 
   const handleSearch = async () => {
-    // Check if the search query matches the expected format for a stock name
+    if (!searchQuery.trim()) {
+      setError("Please enter a stock name.");
+      return;
+    }
+
     if (!/^[a-zA-Z]{1,7}$/.test(searchQuery)) {
       setError("Please input a valid stock name with 1 to 7 letters.");
-      setAllRulesPassed(false);
+      setShowNotification(false);
       return;
     }
 
@@ -35,19 +38,17 @@ const SearchLabel = () => {
       }
 
       const data = await response.json();
-
       if (data === true) {
-        setAllRulesPassed(true);
-        setStockName(searchQuery); // Set the valid stock name
+        setNotificationMessage(`The stock name '${searchQuery}' passes all our rules.`);
+        setShowNotification(true);
       } else {
-        setAllRulesPassed(false);
-        setStockName(""); // Reset the stock name if rules didn't pass
+        setNotificationMessage(`The stock name '${searchQuery}' does not pass all our rules.`);
+        setShowNotification(true);
       }
 
     } catch (error) {
       setError(error.message);
-      setAllRulesPassed(false);
-      setStockName(""); // Reset the stock name if there's an error
+      setShowNotification(false);
     }
   };
 
@@ -62,7 +63,32 @@ const SearchLabel = () => {
       />
       <button onClick={handleSearch}>Search</button>
       {error && <p className="error">{error}</p>}
-      {allRulesPassed && <p>The stock name '{stockName}' passes all our rules.</p>}
+
+      {showNotification && (
+  <div style={{
+    position: 'fixed',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    padding: '20px',
+    backgroundColor: '#fff',
+    boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
+    borderRadius: '8px',
+    zIndex: 1000
+  }}>
+    <p>{notificationMessage}</p>
+    <button onClick={() => setShowNotification(false)} style={{
+      padding: '10px 15px',
+      backgroundColor: '#007BFF',
+      color: '#fff',
+      border: 'none',
+      borderRadius: '4px',
+      cursor: 'pointer'
+    }}>
+      Close
+    </button>
+  </div>
+)}
     </div>
   );
 };
