@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 const SearchLabel = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [error,] = useState(null);
+  const [error, setError] = useState(null);
 
   const handleInputChange = (event) => {
     setSearchQuery(event.target.value);
@@ -11,12 +11,18 @@ const SearchLabel = () => {
   const handleSearch = async () => {
     // Check if the search query matches the expected format for a stock name
     if (!/^[a-zA-Z]+$/.test(searchQuery)) {
-      alert("Please input a valid stock name with 6 or more letters.");
+      setError("Please input a valid stock name with 6 or more letters.");
       return;
     }
   
     try {
-      const response = await fetch(`your-api-endpoint?q=${searchQuery}`);
+      const response = await fetch("http://localhost:8080/rule/run", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ symbol: searchQuery })
+      });
   
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -27,7 +33,7 @@ const SearchLabel = () => {
       console.log(data);
   
     } catch (error) {
-      console.error("Fetch error:", error.message);
+      setError(error.message);
     }
   };
 
