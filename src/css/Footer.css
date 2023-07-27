@@ -1,10 +1,12 @@
+/* Footer styles */
 .footer {
   background-color: #1a1a1a; /* Dark gray background for a sleek look */
   color: #e6e6e6; /* Light gray text for contrast */
   text-align: left;
-  padding: 20px 50px 20px 0%;
-  position: relative;
+  padding: 20px 50px; /* Adjusted padding for better spacing */
+  position: fixed; /* Fixed position to stay at the bottom */
   bottom: 0;
+  left: 0;
   width: 100%;
   box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
   font-family: 'Arial', sans-serif;

@@ -1,9 +1,10 @@
+
 .rights {
-    background-color: #0f0f0f; /* Slightly darker background for contrast */
-    color: #b0b0b0; /* Light gray text */
-    text-align: center; /* Centered text */
-    padding: 10px 0; /* Padding for spacing */
-    font-size: 12px; /* Smaller font size */
-    width: 100%; /* Full width */
-  }
-  
+  background-color: #0f0f0f; /* Slightly darker background for contrast */
+  color: #b0b0b0; /* Light gray text */
+  text-align: center; /* Centered text */
+  font-size: 12px; /* Smaller font size */
+  width: 100%; /* Full width */
+  position: absolute; /* Position at the bottom of the footer */
+  bottom: 0;
+}
