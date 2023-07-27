@@ -4,7 +4,7 @@ const SearchLabel = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [error, setError] = useState(null);
   const [allRulesPassed, setAllRulesPassed] = useState(false);
-  const [stockName, setStockName] = useState(""); // New state variable to store the valid stock name
+  const [stockName, setStockName] = useState("");
 
   const handleInputChange = (event) => {
     setSearchQuery(event.target.value);
@@ -63,7 +63,9 @@ const SearchLabel = () => {
       />
       <button onClick={handleSearch}>Search</button>
       {error && <p className="error">{error}</p>}
-      {allRulesPassed && <p>{`This '${stockName}' passes all our rules.`}</p>}
+      {allRulesPassed && stockName && (
+        <p>{`This '${stockName}' passes all our rules.`}</p>
+      )}
     </div>
   );
 };
