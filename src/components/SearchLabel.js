@@ -23,7 +23,7 @@ const SearchLabel = () => {
   };
 
   return (
-    <div>
+    <div className="SearchLabel">
       <label htmlFor="searchInput">Search:</label>
       <input
         type="text"
