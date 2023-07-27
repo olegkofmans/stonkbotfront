@@ -4,7 +4,9 @@ const SearchLabel = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [error, setError] = useState(null);
   const [allRulesPassed, setAllRulesPassed] = useState(false);
-  const [stockName, setStockName] = useState("");
+  const [stockName, setStockName] = useState(""); // New state variable to store the valid stock name
+
+  const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 
   const handleInputChange = (event) => {
     setSearchQuery(event.target.value);
@@ -20,7 +22,7 @@ const SearchLabel = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:8080/rule/run", {
+      const response = await fetch(`${API_ENDPOINT}/rule/run`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -34,10 +36,7 @@ const SearchLabel = () => {
 
       const data = await response.json();
 
-      // Handle the data as required
-      console.log(data);
-
-      if (data === "true") {
+      if (data === true) {
         setAllRulesPassed(true);
         setStockName(searchQuery); // Set the valid stock name
       } else {
@@ -63,9 +62,7 @@ const SearchLabel = () => {
       />
       <button onClick={handleSearch}>Search</button>
       {error && <p className="error">{error}</p>}
-      {allRulesPassed && stockName && (
-        <p>{`This '${stockName}' passes all our rules.`}</p>
-      )}
+      {allRulesPassed && <p>The stock name '{stockName}' passes all our rules.</p>}
     </div>
   );
 };
