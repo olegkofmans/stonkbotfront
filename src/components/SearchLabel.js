@@ -2,23 +2,30 @@ import React, { useState } from "react";
 
 const SearchLabel = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [error, setError] = useState(null);
 
   const handleInputChange = (event) => {
     setSearchQuery(event.target.value);
   };
 
   const handleSearch = () => {
-    // You can make your API request here using the searchQuery state
-    // For example, using the Fetch API or Axios library.
-    // Replace 'your-api-endpoint' with the actual endpoint of your API.
+    // Reset error state before a new search.
+    setError(null);
+
     fetch(`your-api-endpoint?q=${searchQuery}`)
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
       .then((data) => {
-        // Process the API response data here
         console.log(data);
+        // Handle the data as required.
       })
       .catch((error) => {
         console.error("Error fetching data from API:", error);
+        setError(error.message);
       });
   };
 
@@ -32,6 +39,7 @@ const SearchLabel = () => {
         onChange={handleInputChange}
       />
       <button onClick={handleSearch}>Search</button>
+      {error && <p className="error">{error}</p>}
     </div>
   );
 };

@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../css/Menu.css";
+
+// The Menu component displays the main navigation links of the application.
 const Menu = () => {
   return (
     <nav className="menu">
