@@ -1,4 +1,5 @@
 import React from "react";
+import Menu from "./Menu";
 import "../css/Header.css";
 const Header = () => {
   return (
@@ -7,6 +8,7 @@ const Header = () => {
         {/* Replace this with your logo or text */}
         <h1>Stonkbot</h1>
       </div>
+      <Menu />
     </header>
   );
 };
