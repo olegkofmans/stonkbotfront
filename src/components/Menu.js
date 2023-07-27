@@ -1,21 +1,15 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import "../css/Menu.css";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import '../css/Menu.css';
 
-// The Menu component displays the main navigation links of the application.
 const Menu = () => {
   return (
-    <nav className="menu">
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/stock-analyzer">Stock Analyzer</Link>
-        </li>
-        {/* Add more menu items as needed */}
-      </ul>
-    </nav>
+    <div className="menu">
+      <nav>
+        <Link to="/">Home</Link>
+        <Link to="/stock-search">StockAnalyzer</Link>
+      </nav>
+    </div>
   );
 };
 

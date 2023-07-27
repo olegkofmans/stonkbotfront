@@ -2,31 +2,33 @@ import React, { useState } from "react";
 
 const SearchLabel = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [error, setError] = useState(null);
+  const [error,] = useState(null);
 
   const handleInputChange = (event) => {
     setSearchQuery(event.target.value);
   };
 
-  const handleSearch = () => {
-    // Reset error state before a new search.
-    setError(null);
-
-    fetch(`your-api-endpoint?q=${searchQuery}`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data);
-        // Handle the data as required.
-      })
-      .catch((error) => {
-        console.error("Error fetching data from API:", error);
-        setError(error.message);
-      });
+  const handleSearch = async () => {
+    // Check if the search query matches the expected format for a stock name
+    if (!/^[a-zA-Z]+$/.test(searchQuery)) {
+      alert("Please input a valid stock name with 6 or more letters.");
+      return;
+    }
+  
+    try {
+      const response = await fetch(`your-api-endpoint?q=${searchQuery}`);
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+      // Handle the data as required
+      console.log(data);
+  
+    } catch (error) {
+      console.error("Fetch error:", error.message);
+    }
   };
 
   return (
