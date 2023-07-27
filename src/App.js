@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import Menu from "./components/Menu";
 import SearchLabel from "./components/SearchLabel";
 import Home from "./components/Home";
+import About from "./components/About";  // Newly imported
 import Footer from "./components/Footer";
 import "./css/App.css";
 
@@ -17,6 +18,7 @@ const App = () => {
           <Routes>
             <Route path="/stock-search" element={<SearchLabel />} />
             <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />  
           </Routes>
         </div>
         <Footer />
