@@ -1,15 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import MainPage from './pages/main/main.page';
-// import { Provider } from 'react-redux';
-// import store from './redux/store';
+import React from "react";
+import ReactDOM from "react-dom";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+function Header() {
+  return <h1>stonkbot</h1>;
+}
 
-root.render(
-  <React.StrictMode>
-    {/* <Provider store={store}> */}
-      <MainPage />
-    {/* </Provider> */}
-  </React.StrictMode>
-);
+function App() {
+  return (
+    <div>
+      <Header />
+      <p>hello world</p>
+    </div>
+  );
+}
+
+ReactDOM.render(<App />, document.getElementById("root"));
